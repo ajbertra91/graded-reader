@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #3a201c;
+  --color-surface: #4a2822;
+  --color-surface-hi: #5a322b;
+  --color-line: #7a4034;
+  --color-ink: #ecd9cf;
+  --color-muted: #b98672;
+  --color-accent: #ee7142;
+  --color-accent-ink: #3a201c;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+}
+
+body {
+  background: var(--color-bg);
+}
