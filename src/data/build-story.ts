@@ -55,6 +55,7 @@ export const differs = (choices: Choice[], answer: number) =>
 
 type Draft = {
   id: string
+  level?: number
   titleKo: string
   titleEn: string
   paragraphs: Line[][]
@@ -66,7 +67,7 @@ export function buildStory(draft: Draft): Story {
   const lines = draft.paragraphs.flat()
   return {
     id: draft.id,
-    level: 1,
+    level: draft.level ?? 1,
     titleKo: draft.titleKo,
     titleEn: draft.titleEn,
     paragraphs: draft.paragraphs.map((para) => parse(para.map(([ko]) => ko).join(' '))),

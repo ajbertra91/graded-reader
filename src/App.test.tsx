@@ -25,4 +25,12 @@ describe('App', () => {
     fireEvent.click(screen.getByText(/3\. 글쓴이는 지난달에 혼자/))
     expect(screen.getByText(/Your score: 3 \/ 3/)).toBeInTheDocument()
   })
+
+  it('lists vocabulary by level', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Vocabulary' }))
+    expect(screen.getByRole('heading', { name: /Level 1/ })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Level 2/ })).toBeInTheDocument()
+    expect(screen.getAllByText('고양이').length).toBeGreaterThan(0)
+  })
 })
