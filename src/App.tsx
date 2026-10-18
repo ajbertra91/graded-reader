@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { LEVELS } from "./data/levels";
+import { CHURCH_LEVELS } from "./data/church-levels";
 import { NEWS_LEVELS } from "./data/news-levels";
 import { Reader } from "./components/Reader";
 import { Vocabulary } from "./components/Vocabulary";
 
-const PAGES = ["Reader", "News", "Vocabulary"] as const;
+const PAGES = ["Reader", "News", "Church", "Vocabulary"] as const;
 type Page = (typeof PAGES)[number];
+
+const LEVEL_SETS = {
+  Reader: LEVELS,
+  News: NEWS_LEVELS,
+  Church: CHURCH_LEVELS,
+};
 
 function App() {
   const [page, setPage] = useState<Page>("Reader");
@@ -31,7 +38,7 @@ function App() {
       {page === "Vocabulary" ? (
         <Vocabulary />
       ) : (
-        <Reader key={page} levels={page === "News" ? NEWS_LEVELS : LEVELS} />
+        <Reader key={page} levels={LEVEL_SETS[page]} />
       )}
     </main>
   );

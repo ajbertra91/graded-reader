@@ -4,8 +4,7 @@ import { Questions } from "./Questions";
 import { Reading } from "./Reading";
 import { Translation } from "./Translation";
 
-const TABS = ["Reading", "Translation", "Questions"] as const;
-type Tab = (typeof TABS)[number];
+type Tab = "Reading" | "Translation" | "Questions";
 
 export function Reader({ levels }: { levels: Level[] }) {
   const [levelNum, setLevelNum] = useState(1);
@@ -13,9 +12,13 @@ export function Reader({ levels }: { levels: Level[] }) {
   const [tab, setTab] = useState<Tab>("Reading");
   const level = levels.find((l) => l.level === levelNum)!;
   const story = level.stories[storyIndex];
+  const tabs: Tab[] = story?.questions.length
+    ? ["Reading", "Translation", "Questions"]
+    : ["Reading", "Translation"];
 
   return (
     <>
+      {levels.length > 1 && (
       <nav aria-label="Level" className="mt-4 flex gap-2">
         {levels.map((l) => (
           <button
@@ -34,8 +37,9 @@ export function Reader({ levels }: { levels: Level[] }) {
           </button>
         ))}
       </nav>
+      )}
       <p className="mt-2 text-sm text-muted">
-        {level.label} · {level.topik}. {level.blurb}
+        {level.label}{level.topik && ` · ${level.topik}`}. {level.blurb}
       </p>
 
       {level.stories.length > 1 && (
@@ -79,7 +83,7 @@ export function Reader({ levels }: { levels: Level[] }) {
           )}
 
           <div role="tablist" className="mt-6 flex border-b border-line">
-            {TABS.map((t) => (
+            {tabs.map((t) => (
               <button
                 key={t}
                 role="tab"

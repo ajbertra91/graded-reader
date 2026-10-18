@@ -1,0 +1,70 @@
+import { buildStory } from '../build-story'
+
+export const lordsPrayer = buildStory({
+  id: 'church-lords-prayer',
+  titleKo: '주기도문',
+  titleEn: "The Lord's Prayer",
+  paragraphs: [
+    [
+      ['{하늘}에 {계신|계시다} {우리} {아버지}여,', 'Our Father in heaven,'],
+      ['{이름}이 거룩히 {여김을 받으시오며|여김을 받다},', 'hallowed be your name;'],
+      ['{나라}가 {임하시오며|임하다},', 'your kingdom come;'],
+      [
+        '{뜻}이 {하늘}에서 {이루어진|이루어지다} 것{같이} {땅}에서도 {이루어지이다|이루어지다}.',
+        'your will be done on earth as it is in heaven.',
+      ],
+    ],
+    [
+      ['{오늘} {우리}에게 {일용할|일용하다} {양식}을 {주옵시고|주다},', 'Give us this day our daily bread;'],
+      [
+        '{우리}가 {우리}에게 {죄지은|죄짓다} {자}를 {사하여 준|사하다} 것{같이} {우리} {죄}를 {사하여 주옵시고|사하다},',
+        'and forgive us our sins, as we forgive those who sin against us;',
+      ],
+      [
+        '{우리}를 {시험}에 {들게|들다} 하지 {마옵시고|말다}, {다만} {악}에서 {구하옵소서|구하다}.',
+        'and lead us not into temptation, but deliver us from evil.',
+      ],
+    ],
+    [
+      [
+        '{나라}와 {권세}와 {영광}이 {아버지}께 {영원히} {있사옵나이다|있다}.',
+        'For the kingdom, the power, and the glory are yours forever.',
+      ],
+      ['{아멘}.', 'Amen.'],
+    ],
+  ],
+  vocab: {
+    하늘: 'sky; heaven',
+    계시다: 'be; stay (honorific of 있다)',
+    우리: 'we; our',
+    아버지: 'father',
+    이름: 'name',
+    '여김을 받다': 'be regarded (as holy); be honored',
+    나라: 'country; kingdom',
+    임하다: 'come upon; be present (formal)',
+    뜻: 'will; meaning',
+    이루어지다: 'be accomplished; come true',
+    같이: 'like; just as',
+    땅: 'earth; ground',
+    오늘: 'today',
+    일용하다: 'use every day',
+    양식: 'food; bread; provisions',
+    주다: 'give',
+    죄짓다: 'commit a sin',
+    자: 'person (formal)',
+    사하다: 'forgive; pardon',
+    죄: 'sin',
+    시험: 'temptation; test',
+    들다: 'enter; fall into',
+    말다: 'stop; not do (after -지)',
+    다만: 'but; only',
+    악: 'evil',
+    구하다: 'rescue; deliver',
+    권세: 'power; authority',
+    영광: 'glory',
+    영원히: 'forever',
+    있다: 'be; exist',
+    아멘: 'amen',
+  },
+  questions: [],
+})

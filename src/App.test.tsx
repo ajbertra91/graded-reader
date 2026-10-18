@@ -44,4 +44,14 @@ describe('App', () => {
     )
     expect(screen.queryByRole('button', { name: '고양이' })).toBeNull()
   })
+
+  it('shows church texts with tooltips and no quiz', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Church' }))
+    fireEvent.click(screen.getAllByRole('button', { name: '아버지' })[0])
+    expect(screen.getByRole('tooltip')).toHaveTextContent('father')
+    fireEvent.click(screen.getByRole('button', { name: "The Apostles' Creed" }))
+    expect(screen.getByRole('heading', { name: '사도신경' })).toBeInTheDocument()
+    expect(screen.queryByRole('tab', { name: 'Questions' })).toBeNull()
+  })
 })

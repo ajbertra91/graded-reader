@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
+import { CHURCH_LEVELS } from './church-levels'
 import { LEVELS } from './levels'
 import { NEWS_LEVELS } from './news-levels'
 
-const stories = [...LEVELS, ...NEWS_LEVELS].flatMap((l) => l.stories)
+const quizzed = [...LEVELS, ...NEWS_LEVELS].flatMap((l) => l.stories)
+const stories = [...quizzed, ...CHURCH_LEVELS.flatMap((l) => l.stories)]
 
 describe.each(stories.map((s) => [s.id, s] as const))('%s', (_id, story) => {
   const tapped = new Set(story.paragraphs.flat().flatMap((seg) => (seg.word ? [seg.word] : [])))
@@ -20,7 +22,7 @@ describe.each(stories.map((s) => [s.id, s] as const))('%s', (_id, story) => {
     expect(story.sentences.map((s) => s.ko).join(' ')).toBe(text)
   })
 
-  it('has three questions with four options and a valid answer', () => {
+  it.runIf(quizzed.includes(story))('has three questions with four options and a valid answer', () => {
     expect(story.questions).toHaveLength(3)
     for (const q of story.questions) {
       expect(q.options).toHaveLength(4)
