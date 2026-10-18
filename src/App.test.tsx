@@ -33,4 +33,15 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /Level 2/ })).toBeInTheDocument()
     expect(screen.getAllByText('고양이').length).toBeGreaterThan(0)
   })
+
+  it('shows news stories with a source link, separate from the reader', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'News' }))
+    expect(screen.getByText(/News Level 1/)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'The Korea Herald' })).toHaveAttribute(
+      'href',
+      expect.stringContaining('koreaherald.com'),
+    )
+    expect(screen.queryByRole('button', { name: '고양이' })).toBeNull()
+  })
 })

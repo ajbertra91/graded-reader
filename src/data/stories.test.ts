@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { LEVELS } from './levels'
+import { NEWS_LEVELS } from './news-levels'
 
-const stories = LEVELS.flatMap((l) => l.stories)
+const stories = [...LEVELS, ...NEWS_LEVELS].flatMap((l) => l.stories)
 
 describe.each(stories.map((s) => [s.id, s] as const))('%s', (_id, story) => {
   const tapped = new Set(story.paragraphs.flat().flatMap((seg) => (seg.word ? [seg.word] : [])))

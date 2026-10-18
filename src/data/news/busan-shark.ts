@@ -1,0 +1,98 @@
+import { buildStory, differs, matches, topic } from '../build-story'
+
+export const busanShark = buildStory({
+  id: 'news-busan-shark',
+  titleKo: '부산에 큰 상어가 있습니다',
+  titleEn: 'A Big Shark in Busan',
+  source: {
+    outlet: 'The Korea Herald',
+    url: 'https://www.koreaherald.com/article/10905769',
+    date: '2026-10-17',
+  },
+  paragraphs: [
+    [
+      ['{부산} {북항}에 {큰|크다} {상어}가 있습니다.', 'There is a big shark at Busan North Port.'],
+      ['{이름}은 "북항이"입니다.', 'Its name is "Bukang-i".'],
+      ['북항이는 {약} 3.5{미터}입니다.', 'Bukang-i is about 3.5 meters long.'],
+      ['9월 18일에 {처음} {봤습니다|보다}.', 'People first saw it on September 18.'],
+      ['북항이는 {바다} {옆} {작은|작다} {운하}에 있습니다.', 'Bukang-i is in a small canal next to the sea.'],
+    ],
+    [
+      ['사람들이 북항이를 {구경하러|구경하다} {옵니다|오다}.', 'People come to see Bukang-i.'],
+      ['{지금}까지 150만 {명} {가까이} {왔습니다|오다}.', 'Up to now, nearly 1.5 million people have come.'],
+      ['{금요일}에는 3만 2천 명이 왔습니다.', 'On Friday, 32,000 people came.'],
+      ['이 {숫자}는 부산 {인구}의 {거의} {반}입니다.', "This number is nearly half of Busan's population."],
+    ],
+    [
+      [
+        '사람들은 북항이를 바다로 {보내 주려고|보내다} 두 {번} 했습니다.',
+        'People tried twice to send Bukang-i to the sea.',
+      ],
+      ['하지만 북항이는 {다시} {돌아왔습니다|돌아오다}.', 'But Bukang-i came back.'],
+      ['지금은 {더} 하지 않습니다.', 'Now they do not try any more.'],
+      ['{관계자}들이 {전문가}와 {이야기합니다|이야기하다}.', 'Officials are talking with experts.'],
+    ],
+  ],
+  vocab: {
+    부산: 'Busan',
+    북항: 'North Port (Busan)',
+    크다: 'big',
+    상어: 'shark',
+    이름: 'name',
+    약: 'about',
+    미터: 'meter',
+    처음: 'first; for the first time',
+    보다: 'see; look',
+    바다: 'sea',
+    옆: 'next to; side',
+    작다: 'small',
+    운하: 'canal',
+    구경하다: 'look around; go and see',
+    오다: 'come',
+    지금: 'now',
+    명: 'person (counter)',
+    가까이: 'nearly; close to',
+    금요일: 'Friday',
+    숫자: 'number',
+    인구: 'population',
+    거의: 'almost; nearly',
+    반: 'half',
+    보내다: 'send',
+    번: 'time(s)',
+    다시: 'again',
+    돌아오다: 'come back; return',
+    더: 'more; any more',
+    관계자: 'official; person concerned',
+    전문가: 'expert',
+    이야기하다: 'talk',
+  },
+  questions: [
+    topic(
+      [
+        ['부산의 큰 상어 이야기', 'A story about a big shark in Busan'],
+        ['부산의 새 시장 소식', 'News about a new market in Busan'],
+        ['바다 여행 소식', 'News about a sea trip'],
+        ['물고기 가게 소식', 'News about a fish shop'],
+      ],
+      0,
+    ),
+    matches(
+      [
+        ['북항이는 3.5센티미터입니다.', 'Bukang-i is 3.5 centimeters long.'],
+        ['북항이는 바다로 돌아갔습니다.', 'Bukang-i went back to the sea.'],
+        ['방문객은 100명입니다.', 'There are 100 visitors.'],
+        ['북항이는 작은 운하에 있습니다.', 'Bukang-i is in a small canal.'],
+      ],
+      3,
+    ),
+    differs(
+      [
+        ['북항이는 바다로 돌아갔습니다.', 'Bukang-i went back to the sea.'],
+        ['북항이는 약 3.5미터입니다.', 'Bukang-i is about 3.5 meters long.'],
+        ['사람들이 북항이를 구경하러 옵니다.', 'People come to see Bukang-i.'],
+        ['9월 18일에 처음 봤습니다.', 'People first saw it on September 18.'],
+      ],
+      0,
+    ),
+  ],
+})

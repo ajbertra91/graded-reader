@@ -11,6 +11,8 @@ export type Question = {
 
 export type Sentence = { id: string; ko: string; en: string }
 
+export type Source = { outlet: string; url: string; date: string }
+
 export type Story = {
   id: string
   level: number
@@ -21,4 +23,5 @@ export type Story = {
   sentences: Sentence[]
   translation: string[]
   questions: Question[]
+  source?: Source
 }

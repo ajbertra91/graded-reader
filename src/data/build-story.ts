@@ -1,4 +1,4 @@
-import type { Question, Segment, Story } from '../types'
+import type { Question, Segment, Source, Story } from '../types'
 
 // Korean text marks tappable words as {surface|dictionary form}.
 // {word} means the surface form is also the dictionary form.
@@ -61,6 +61,7 @@ type Draft = {
   paragraphs: Line[][]
   vocab: Record<string, string>
   questions: Question[]
+  source?: Source
 }
 
 export function buildStory(draft: Draft): Story {
@@ -79,5 +80,6 @@ export function buildStory(draft: Draft): Story {
     })),
     translation: draft.paragraphs.map((para) => para.map(([, en]) => en).join(' ')),
     questions: draft.questions,
+    source: draft.source,
   }
 }
