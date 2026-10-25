@@ -1,8 +1,12 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import App from './App.tsx'
 
 describe('App', () => {
+  beforeEach(() => {
+    window.history.pushState({}, '', '/')
+  })
+
   it('shows a vocabulary tooltip when a word is tapped', () => {
     render(<App />)
     fireEvent.click(screen.getAllByRole('button', { name: '고양이' })[0])
@@ -28,15 +32,17 @@ describe('App', () => {
 
   it('lists vocabulary by level', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('button', { name: 'Vocabulary' }))
+    fireEvent.click(screen.getByRole('link', { name: 'Vocabulary' }))
     expect(screen.getByRole('heading', { name: /Level 1/ })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('link', { name: '2' }))
     expect(screen.getByRole('heading', { name: /Level 2/ })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('link', { name: '1' }))
     expect(screen.getAllByText('고양이').length).toBeGreaterThan(0)
   })
 
   it('shows news stories with a source link, separate from the reader', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('button', { name: 'News' }))
+    fireEvent.click(screen.getByRole('link', { name: 'News' }))
     expect(screen.getByText(/News Level 1/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'The Korea Herald' })).toHaveAttribute(
       'href',
@@ -47,7 +53,7 @@ describe('App', () => {
 
   it('shows church texts with tooltips and no quiz', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('button', { name: 'Church' }))
+    fireEvent.click(screen.getByRole('link', { name: 'Church' }))
     fireEvent.click(screen.getAllByRole('button', { name: '아버지' })[0])
     expect(screen.getByRole('tooltip')).toHaveTextContent('father')
     fireEvent.click(screen.getByRole('button', { name: "The Apostles' Creed" }))

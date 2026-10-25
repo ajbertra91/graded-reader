@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { Navigate, useParams } from "react-router";
 import type { Level } from "../data/levels";
+import { LevelNav } from "./LevelNav";
 import { Questions } from "./Questions";
 import { Reading } from "./Reading";
 import { Translation } from "./Translation";
 
 type Tab = "Reading" | "Translation" | "Questions";
 
-export function Reader({ levels }: { levels: Level[] }) {
-  const [levelNum, setLevelNum] = useState(1);
+export function Reader({ levels, basePath }: { levels: Level[]; basePath: string }) {
+  const levelNum = Number(useParams().level);
   const [storyIndex, setStoryIndex] = useState(0);
   const [tab, setTab] = useState<Tab>("Reading");
-  const level = levels.find((l) => l.level === levelNum)!;
+  const level = levels.find((l) => l.level === levelNum);
+  if (!level) return <Navigate to={`${basePath}/level/1`} replace />;
   const story = level.stories[storyIndex];
   const tabs: Tab[] = story?.questions.length
     ? ["Reading", "Translation", "Questions"]
@@ -19,24 +22,10 @@ export function Reader({ levels }: { levels: Level[] }) {
   return (
     <>
       {levels.length > 1 && (
-      <nav aria-label="Level" className="mt-4 flex gap-2">
-        {levels.map((l) => (
-          <button
-            key={l.level}
-            type="button"
-            disabled={l.stories.length === 0}
-            aria-pressed={l.level === levelNum}
-            className="rounded-full border border-line px-3 py-1 text-sm enabled:hover:bg-surface-hi disabled:opacity-40 aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-accent-ink"
-            onClick={() => {
-              setLevelNum(l.level);
-              setStoryIndex(0);
-              setTab("Reading");
-            }}
-          >
-            {l.level}
-          </button>
-        ))}
-      </nav>
+        <LevelNav
+          basePath={basePath}
+          levels={levels.map((l) => ({ level: l.level, empty: l.stories.length === 0 }))}
+        />
       )}
       <p className="mt-2 text-sm text-muted">
         {level.label}{level.topik && ` · ${level.topik}`}. {level.blurb}

@@ -1,14 +1,21 @@
+import { Navigate, useParams } from 'react-router'
+import { LEVELS } from '../data/levels'
 import { buildVocabulary } from '../data/vocabulary'
+import { LevelNav } from './LevelNav'
 
 const VOCABULARY = buildVocabulary()
 
 export function Vocabulary() {
+  const levelNum = Number(useParams().level)
+  if (!LEVELS.some((l) => l.level === levelNum)) return <Navigate to="/vocabulary/level/1" replace />
   return (
+    <>
+    <LevelNav basePath="/vocabulary" levels={LEVELS.map(({ level }) => ({ level, empty: !VOCABULARY.some((v) => v.level === level) }))} />
     <div className="mt-6 space-y-10">
       <p className="text-sm text-muted">
         Every word from the stories, grouped by level. Words are grouped by type. Each word appears once, under the first level that uses it.
       </p>
-      {VOCABULARY.map(({ level, label, topik, count, groups }) => (
+      {VOCABULARY.filter((v) => v.level === levelNum).map(({ level, label, topik, count, groups }) => (
         <section key={level} aria-labelledby={`vocab-level-${level}`}>
           <h2 id={`vocab-level-${level}`} className="font-serif text-2xl">
             {label}
@@ -36,5 +43,6 @@ export function Vocabulary() {
         </section>
       ))}
     </div>
+    </>
   )
 }
